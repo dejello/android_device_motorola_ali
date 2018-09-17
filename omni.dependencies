@@ -1,0 +1,8 @@
+[
+	{
+		"remote":"github",
+		"repository":"dejello/android_kernel_motorola_msm8953",
+		"target_path":"kernel/motorola/msm8953",
+		"revision":"twrp-8.1"
+	}
+]
