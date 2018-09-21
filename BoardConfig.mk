@@ -36,22 +36,22 @@ TARGET_NO_BOOTLOADER := true
 #
 # Architecture
 #
-TARGET_ARCH := arm
-TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_CPU_ABI := armeabi-v7a
-TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_VARIANT := cortex-a53
-# 64bit testing, comment out the above and uncomment below to try
-#TARGET_ARCH := arm64
-#TARGET_ARCH_VARIANT := armv8-a
-#TARGET_CPU_ABI := arm64-v8a
-#TARGET_CPU_ABI2 :=
+#TARGET_ARCH := arm
+#TARGET_ARCH_VARIANT := armv7-a-neon
+#TARGET_CPU_ABI := armeabi-v7a
+#TARGET_CPU_ABI2 := armeabi
 #TARGET_CPU_VARIANT := cortex-a53
-#TARGET_2ND_ARCH := arm
-#TARGET_2ND_ARCH_VARIANT := armv7-a-neon
-#TARGET_2ND_CPU_ABI := armeabi-v7a
-#TARGET_2ND_CPU_ABI2 := armeabi
-#TARGET_2ND_CPU_VARIANT := cortex-a53
+# 64bit testing, comment out the above and uncomment below to try
+TARGET_ARCH := arm64
+TARGET_ARCH_VARIANT := armv8-a
+TARGET_CPU_ABI := arm64-v8a
+TARGET_CPU_ABI2 :=
+TARGET_CPU_VARIANT := cortex-a53
+TARGET_2ND_ARCH := arm
+TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_CPU_ABI := armeabi-v7a
+TARGET_2ND_CPU_ABI2 := armeabi
+TARGET_2ND_CPU_VARIANT := cortex-a53
 
 #
 # Binder API version
@@ -81,20 +81,26 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 26419903488	# 25800687 * 1024 mmcblk0p53
 #
 # Kernel
 #
-TARGET_KERNEL_ARCH := arm
+# 32bit vs 64bit:
+#TARGET_KERNEL_ARCH := arm # 32bit
+#BOARD_KERNEL_IMAGE_NAME := zImage # 32bit
+#TARGET_KERNEL_CROSS_COMPILE_PREFIX = arm-linux-androideabi- # 32bit
+TARGET_KERNEL_ARCH := arm64 # 64bit
+BOARD_KERNEL_IMAGE_NAME := Image.gz # 64bit
+TARGET_KERNEL_CROSS_COMPILE_PREFIX = aarch64-linux-android- # 64bit
+
 TARGET_KERNEL_CONFIG := ali_defconfig
 TARGET_KERNEL_SOURCE := kernel/motorola/msm8953
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x237
 BOARD_KERNEL_CMDLINE += ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 vmalloc=400M
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-BOARD_KERNEL_IMAGE_NAME := zImage
+BOARD_KERNEL_LZ4C_DT := true
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_DTBTOOL_ARGS := -2
-TARGET_CUSTOM_DTBTOOL := dtbTool_custom # using custom for minimal twrp build
-BOARD_KERNEL_LZ4C_DT := true
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 PRODUCT_VENDOR_KERNEL_HEADERS :=  $(DEVICE_PATH)/kernel-headers
+TARGET_CUSTOM_DTBTOOL := dtbTool_custom # using custom for minimal twrp build
 
 #
 # Recovery
