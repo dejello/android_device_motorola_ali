@@ -4,11 +4,5 @@
     "repository":"dejello/android_kernel_motorola_msm8953",
     "target_path":"kernel/motorola/msm8953",
     "revision":"twrp-8.1"
-  },
-  {
-    "remote":"github",
-    "repository": "TeamWin/android_device_qcom_common",
-    "target_path": "device/qcom/common",
-    "revision":"android-8.1"
   }
 ]
