@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018 The TwrpBuilder Open-Source Project
+# Copyright (C) 2015 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,11 @@
 # limitations under the License.
 #
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-PRODUCT_DEVICE := ali
-PRODUCT_NAME := omni_ali
-PRODUCT_BRAND := motorola
-PRODUCT_MODEL := moto g(6)
-PRODUCT_MANUFACTURER := motorola
+# Inherit from ali device
+$(call inherit-product, device/motorola/ali/device.mk)
 
+# Device identifier. This must come after all inclusions
+PRODUCT_DEVICE := ali
+PRODUCT_NAME := full_ali
+
+$(call inherit-product-if-exists, vendor/motorola/ali/ali-vendor.mk)
