@@ -105,7 +105,7 @@ TARGET_CUSTOM_DTBTOOL := dtbTool_custom # using custom for minimal twrp build
 #
 # Recovery
 #
-TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 
 #
