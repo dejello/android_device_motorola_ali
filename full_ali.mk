@@ -14,11 +14,7 @@
 # limitations under the License.
 #
 
-# Inherit from ali device
-$(call inherit-product, device/motorola/ali/device.mk)
-
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := ali
 PRODUCT_NAME := full_ali
 
-$(call inherit-product-if-exists, vendor/motorola/ali/ali-vendor.mk)

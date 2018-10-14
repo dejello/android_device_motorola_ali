@@ -16,8 +16,8 @@
 
 ifneq ($(filter ali,$(TARGET_DEVICE)),)
 
-LOCAL_PATH := device/motorola/ali/
+DEVICE_PATH := device/motorola/ali
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
+include $(call all-makefiles-under,$(DEVICE_PATH))
 
 endif

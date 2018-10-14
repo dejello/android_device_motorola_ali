@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/motorola/ali/
+DEVICE_PATH := device/motorola/ali
 
-PRODUCT_MAKEFILES := $(LOCAL_PATH)/omni_ali.mk
+PRODUCT_MAKEFILES := $(DEVICE_PATH)/omni_ali.mk
