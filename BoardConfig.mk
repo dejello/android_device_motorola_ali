@@ -21,8 +21,10 @@ BOARD_VENDOR := motorola-qcom
 # All of the if statements are ugly....  I don't care right now.
 # Testing between 32 bit (arm) and 64 bit (arm64), added only to make changes easier
 # If arm64 is not defined it'll assume arm.
-ARCH_TYPE := arm # arm or arm64
-KERNEL_PREBUILT := true # use the prebuilt kernel and dt.img?
+# arm or arm64 - currently arm64 is not decrypting and causes focaltech (touchscreen) to log some error
+ARCH_TYPE := arm
+# use the prebuilt kernel and dt.img?
+KERNEL_PREBUILT := true
 
 
 #
@@ -47,7 +49,7 @@ ifeq ($(ARCH_TYPE),arm64)
      TARGET_2ND_ARCH_VARIANT := armv7-a-neon
      TARGET_2ND_CPU_ABI := armeabi-v7a
      TARGET_2ND_CPU_ABI2 := armeabi
-     TARGET_2ND_CPU_VARIANT := cortex-a53
+     TARGET_2ND_CPU_VARIANT := cortex-a7
      # 64bit Binder API version
      TARGET_USES_64_BIT_BINDER := true
 else
@@ -56,7 +58,7 @@ else
      TARGET_ARCH_VARIANT := armv7-a-neon
      TARGET_CPU_ABI := armeabi-v7a
      TARGET_CPU_ABI2 := armeabi
-     TARGET_CPU_VARIANT := cortex-a53
+     TARGET_CPU_VARIANT := cortex-a7
 endif
 
 #
@@ -68,7 +70,7 @@ TARGET_OTA_ASSERT_DEVICE := ali,ali_retail
 #
 # Encryption
 #
-BOARD_USES_QCOM_HARDWARE := true
+#BOARD_USES_QCOM_HARDWARE := true
 #TARGET_CRYPTFS_HW_PATH := $(DEVICE_PATH)/cryptfs_hw
 TARGET_HW_DISK_ENCRYPTION := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
@@ -97,12 +99,12 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 #
 # Testing between 32 bit (arm) and 64 bit (arm64), added only to make changes easier
 ifeq ($(ARCH_TYPE),arm64)
-     # arm64 - 64bit
+     # arm64
      BOARD_KERNEL_IMAGE_NAME := Image.gz
      TARGET_KERNEL_ARCH := arm64
      TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 else
-     # If arm64 is not defined, then assume arm - 32bit
+     # If arm64 is not defined, then assume arm
      BOARD_KERNEL_IMAGE_NAME := zImage
      TARGET_KERNEL_ARCH := arm
      TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
@@ -111,27 +113,33 @@ endif
 ifeq ($(KERNEL_PREBUILT),true)
      TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dt-lz4.img
      ifeq ($(ARCH_TYPE),arm64)
-          # ARM64 - 64bit
+          # arm64
           TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz
      else
-          # If ARM64 is not defined, then assume ARM - 32bit
+          # If arm64 is not defined, then assume arm
           TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/zImage
      endif
-endif
-
-ifneq ($(strip $(KERNEL_PREBUILT)),)
-       BOARD_DTBTOOL_ARGS := -2
-       BOARD_KERNEL_LZ4C_DT := true
-       TARGET_KERNEL_CONFIG := ali_defconfig
-       TARGET_KERNEL_SOURCE := kernel/motorola/msm8953
+else
+     BOARD_DTBTOOL_ARGS := -2
+     BOARD_KERNEL_LZ4C_DT := true
+     TARGET_KERNEL_CONFIG := ali_defconfig
+     TARGET_KERNEL_SOURCE := kernel/motorola/msm8953
 endif
 
 BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 BOARD_KERNEL_BASE := 0x80000000
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=30
-BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1
-BOARD_KERNEL_CMDLINE += vmalloc=400M androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := \
+     console=ttyHSL0,115200,n8 \
+     androidboot.console=ttyHSL0 \
+     androidboot.hardware=qcom \
+     user_debug=30 \
+     msm_rtb.filter=0x237 \
+     ehci-hcd.park=3 \
+     androidboot.bootdevice=7824900.sdhci \
+     lpm_levels.sleep_disabled=1 \
+     vmalloc=400M \
+     androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 LZMA_RAMDISK_TARGETS := recovery
@@ -156,24 +164,22 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_RECOVERY_SWIPE := true
 BOARD_USES_MMCUTILS := true
 BOARD_SUPPRESS_EMMC_WIPE := true
-#RECOVERY_SDCARD_ON_DATA := true
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
+RECOVERY_SDCARD_ON_DATA := true
+#RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/etc/recovery.fstab
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/soc/7000000.ssusb/7000000.dwc3/gadget/lun0/file"
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_DEFAULT_BRIGHTNESS := 128
-TW_EXCLUDE_SUPERSU := true # TW_OEM_BUILD := true will preselect this
-#TW_EXTRA_LANGUAGES := true
+TW_EXCLUDE_SUPERSU := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-#TW_OEM_BUILD := true # sets an OEM friendly version
 TW_THEME := portrait_hdpi
-TW_USE_TOOLBOX := true # TW_OEM_BUILD := true will preselect this
-TW_TARGET_USES_QCOM_BSP := true # testing
-TWHAVE_SELINUX := false # testing
+#TW_CUSTOM_THEME := $(DEVICE_PATH)/recovery/theme/Theme_CryptoGreen
 
+#TW_USE_TOOLBOX := true
+
+#
 # TWRP Debug Flags
-#TWRP_EVENT_LOGGING := true # annoyingly log everything twrp sees......like touch events
-#TARGET_USES_LOGD := true
+#
 #TWRP_INCLUDE_LOGCAT := true
 #TARGET_RECOVERY_DEVICE_MODULES += strace debuggerd
 #TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT_OPTIONAL_EXECUTABLES)/strace $(TARGET_OUT_EXECUTABLES)/debuggerd
@@ -181,7 +187,9 @@ TWHAVE_SELINUX := false # testing
 #TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/twrpdec
 #TW_CRYPTO_SYSTEM_VOLD_DEBUG := true
 
+#
 #Treble
+#
 BOARD_NEEDS_VENDORIMAGE_SYMLINK := false
 TARGET_COPY_OUT_VENDOR := vendor
 BOARD_HAS_LARGE_FILESYSTEM := true
