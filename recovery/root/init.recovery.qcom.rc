@@ -6,23 +6,16 @@ on fs
     chmod 0664 /dev/ion
     chown system system /dev/ion
 
-on property:ro.crypto.state=encrypted
-    start sbinqseecomd
-
-on property:ro.crypto.fs_crypto_blkdev=/dev/block/dm-0
-    stop sbinqseecomd
-
-service sbinqseecomd /sbin/qseecomd
+service sbin_qseecomd /sbin/qseecomd
     oneshot
     disabled
     user root
     group root
     seclabel u:r:recovery:s0
 
-service keystore_auth /sbin/keystore_auth
-    disabled
-    oneshot
-    user system
-    group root
-    seclabel u:r:recovery:s0
+on property:ro.crypto.state=encrypted
+    start sbin_qseecomd
+
+on property:ro.crypto.fs_crypto_blkdev=/dev/block/dm-0
+    stop sbin_qseecomd
 
