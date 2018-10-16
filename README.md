@@ -22,19 +22,20 @@ Copyright 2018 - The LineageOS Project.
 ![Moto G6](https://cdn2.gsmarena.com/vv/pics/motorola/motorola-moto-g6-2.jpg "Moto G6")
 
 
+## NOTES: ##
+Decryption is currently in testing phase.  For decryption to work you must flash this image.
+
+If you want to test, please make whatever backups you think you'll want before hand.
 --------------
-Device tree for building TWRP for the Moto G6 (ALI): Files have been modified from TWRPBuilder script and device tree from ADDISON---then modified much much more.
-
-		Decryption is currently in testing phase.  For decryption to work you must flash this image.  If you want to test, please make whatever backups you think you'll want before hand.
-
 You can test building 64bit/prebuilt kernels or building by changing 
 'ARCH_TYPE' and 'KERNEL_PREBUILT' variables in BoardConfig.mk
 
 
 --------------
-This should build using minimal TWRP manifest:
+This should build using minimal TWRP manifest. After cloning this repo into _`device/motorola/ali`_
 
-		$ breakfast ali
-
-		$ mka recoveryimage
+```sh
+$ breakfast ali
+$ mka recoveryimage
+```
 
