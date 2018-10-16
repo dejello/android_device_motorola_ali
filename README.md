@@ -6,12 +6,12 @@ It was announced on April 2018.
 
 Basic   | Spec Sheet
 -------:|:-------------------------
-CPU     | Octa-core 2.0 GHz Cortex-A53
+CPU     | Octa-core 1.8 GHz Cortex-A53
 Chipset | Qualcomm SDM450
 GPU     | Adreno 506
-Memory  | 3 GB RAM
+Memory  | 4 or 3 GB RAM
 Shipped Android Version | 8.0.0
-Storage | 32 GB
+Storage | 64 or 32 GB
 MicroSD | Up to 256 GB
 Battery | Li-Ion 3000mAh battery
 Display | 1080 x 2160 pixels, 5.7 inches, 18:9 ratio (~424 ppi density)
