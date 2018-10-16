@@ -23,15 +23,12 @@ Copyright 2018 - The LineageOS Project.
 
 
 ## NOTES: ##
-Decryption is currently in testing phase.  For decryption to work you must flash this image.
+Decryption is currently working with VOLD_DECRYPT only.  For it to work you seem to need to flash this image.
 
-If you want to test, please make whatever backups you think you'll want before hand.
---------------
-You can test building 64bit/prebuilt kernels or building by changing 
-'ARCH_TYPE' and 'KERNEL_PREBUILT' variables in BoardConfig.mk
-
+Please make whatever backups you think you'll want before hand.
 
 --------------
+
 This should build using minimal TWRP manifest. After cloning this repo into _`device/motorola/ali`_
 
 ```sh
