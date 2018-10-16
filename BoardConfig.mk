@@ -18,15 +18,6 @@ DEVICE_PATH := device/motorola/ali
 
 BOARD_VENDOR := motorola-qcom
 
-# All of the if statements are ugly....  I don't care right now.
-# Testing between 32 bit (arm) and 64 bit (arm64), added only to make changes easier
-# If arm64 is not defined it'll assume arm.
-# arm or arm64 - currently arm64 is not decrypting and causes focaltech (touchscreen) to log some error
-ARCH_TYPE := arm
-# use the prebuilt kernel and dt.img?
-KERNEL_PREBUILT := true
-
-
 #
 # Board
 #
@@ -38,28 +29,11 @@ TARGET_NO_BOOTLOADER := true
 #
 # Architecture
 #
-ifeq ($(ARCH_TYPE),arm64)
-     # arm64 - 64bit
-     TARGET_ARCH := arm64
-     TARGET_ARCH_VARIANT := armv8-a
-     TARGET_CPU_ABI := arm64-v8a
-     TARGET_CPU_ABI2 :=
-     TARGET_CPU_VARIANT := cortex-a53
-     TARGET_2ND_ARCH := arm
-     TARGET_2ND_ARCH_VARIANT := armv7-a-neon
-     TARGET_2ND_CPU_ABI := armeabi-v7a
-     TARGET_2ND_CPU_ABI2 := armeabi
-     TARGET_2ND_CPU_VARIANT := cortex-a7
-     # 64bit Binder API version
-     TARGET_USES_64_BIT_BINDER := true
-else
-     # If arm64 is not defined, then assume arm - 32bit
-     TARGET_ARCH := arm
-     TARGET_ARCH_VARIANT := armv7-a-neon
-     TARGET_CPU_ABI := armeabi-v7a
-     TARGET_CPU_ABI2 := armeabi
-     TARGET_CPU_VARIANT := cortex-a7
-endif
+TARGET_ARCH := arm
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_VARIANT := cortex-a7
 
 #
 # Asserts
@@ -97,36 +71,10 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 #
 # Kernel
 #
-# Testing between 32 bit (arm) and 64 bit (arm64), added only to make changes easier
-ifeq ($(ARCH_TYPE),arm64)
-     # arm64
-     BOARD_KERNEL_IMAGE_NAME := Image.gz
-     TARGET_KERNEL_ARCH := arm64
-     TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
-else
-     # If arm64 is not defined, then assume arm
-     BOARD_KERNEL_IMAGE_NAME := zImage
-     TARGET_KERNEL_ARCH := arm
-     TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
-endif
-
-ifeq ($(KERNEL_PREBUILT),true)
-     TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dt-lz4.img
-     ifeq ($(ARCH_TYPE),arm64)
-          # arm64
-          TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz
-     else
-          # If arm64 is not defined, then assume arm
-          TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/zImage
-     endif
-else
-     BOARD_DTBTOOL_ARGS := -2
-     BOARD_KERNEL_LZ4C_DT := true
-     TARGET_KERNEL_CONFIG := ali_defconfig
-     TARGET_KERNEL_SOURCE := kernel/motorola/msm8953
-endif
-
 BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
+BOARD_DTBTOOL_ARGS := -2
+BOARD_KERNEL_IMAGE_NAME := zImage
+BOARD_KERNEL_LZ4C_DT := true
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_CMDLINE := \
@@ -145,6 +93,12 @@ BOARD_KERNEL_SEPARATED_DT := true
 LZMA_RAMDISK_TARGETS := recovery
 PRODUCT_VENDOR_KERNEL_HEADERS :=  $(DEVICE_PATH)/kernel-headers
 #TARGET_CUSTOM_DTBTOOL := dtbTool_custom
+TARGET_KERNEL_ARCH := arm
+#TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
+#TARGET_KERNEL_CONFIG := ali_defconfig
+#TARGET_KERNEL_SOURCE := kernel/motorola/msm8953
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dt-lz4.img
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/zImage
 
 #
 # Recovery
