@@ -70,7 +70,7 @@ TARGET_OTA_ASSERT_DEVICE := ali,ali_retail
 #
 # Encryption
 #
-#BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_QCOM_HARDWARE := true
 #TARGET_CRYPTFS_HW_PATH := $(DEVICE_PATH)/cryptfs_hw
 TARGET_HW_DISK_ENCRYPTION := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
@@ -169,13 +169,12 @@ RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/etc/recovery.fstab
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/soc/7000000.ssusb/7000000.dwc3/gadget/lun0/file"
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
+#TW_CUSTOM_THEME := $(DEVICE_PATH)/recovery/theme/Theme_CryptoGreen
 TW_DEFAULT_BRIGHTNESS := 128
 TW_EXCLUDE_SUPERSU := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_THEME := portrait_hdpi
-#TW_CUSTOM_THEME := $(DEVICE_PATH)/recovery/theme/Theme_CryptoGreen
-
-#TW_USE_TOOLBOX := true
+TW_USE_TOOLBOX := true
 
 #
 # TWRP Debug Flags
