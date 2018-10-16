@@ -1,4 +1,4 @@
-#on fs
+on fs
     # needed to make qseecomd work in recovery
     chmod 0660 /dev/qseecom
     chown system drmrpc /dev/qseecom
