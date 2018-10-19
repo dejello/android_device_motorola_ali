@@ -23,7 +23,7 @@ Copyright 2018 - The LineageOS Project.
 
 
 ## NOTES: ##
-Decryption is currently working with VOLD_DECRYPT only.  For it to work you seem to need to flash this image.
+Decryption is currently working with VOLD_DECRYPT only on factory Motorola firmware.  For it to work you seem to need to flash this image.
 
 Please make whatever backups you think you'll want before hand.
 
