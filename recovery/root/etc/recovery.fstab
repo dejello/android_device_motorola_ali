@@ -24,5 +24,4 @@
 # vendor addition
 /dev/block/bootdevice/by-name/vendor		/vendor		ext4	ro,barrier=1,discard								wait
 # recovery addition
-/dev/block/bootdevice/by-name/recovery		/recovery	ext4
-
+/dev/block/bootdevice/by-name/recovery		/recovery	ext4	defaults									defaults
