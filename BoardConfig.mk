@@ -127,7 +127,6 @@ TW_DEFAULT_BRIGHTNESS := 128
 TW_EXCLUDE_SUPERSU := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_THEME := portrait_hdpi
-TW_USE_TOOLBOX := true
 
 #
 # TWRP Debug Flags
